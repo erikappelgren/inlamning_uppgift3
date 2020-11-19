@@ -24,18 +24,18 @@ namespace Inlamning_3_ra_kod
         double[] vars = new double[8];
         public string entry;
         public string adress;
-        
+        private string fileName = @"C:\Users\erika\source\molkfreecalc2.clc";
         /* CONSTRUCTOR: CStack
-         * PURPOSE: create a new stack and init X, Y, Z, T and the text entry
+         * PURPOSE: create a new stack and init X, Y, Z, T, A-H and the text entry. Loads from file if file exists
          * PARAMETERS: --
          */
         public CStack()
         {
             
             entry = "";
-            if (File.Exists(@"C:\Users\erika\source\molkfreecalc2.clc"))
+            if (File.Exists(fileName))
             {
-                string[] lines = File.ReadAllLines(@"C:\Users\erika\source\molkfreecalc2.clc");
+                string[] lines = File.ReadAllLines(fileName);
                 X = double.Parse(lines[0]);
                 Y = double.Parse(lines[1]);
                 Z = double.Parse(lines[2]);
@@ -48,7 +48,7 @@ namespace Inlamning_3_ra_kod
             
         }
         /* METHOD: Exit
-         * PURPOSE: called on exit, prepared for saving
+         * PURPOSE: called on exit, saves inputted variables to file
          * PARAMETERS: --
          * RETURNS: --
          */
@@ -59,7 +59,7 @@ namespace Inlamning_3_ra_kod
             stack[1] = Y.ToString();
             stack[2] = Z.ToString();
             stack[3] = T.ToString();
-            File.WriteAllLines(@"C:\Users\erika\source\molkfreecalc2.clc", stack);
+            File.WriteAllLines(fileName, stack);
         }
         /* METHOD: StackString
          * PURPOSE: construct a string to write out in a stack view
@@ -74,7 +74,7 @@ namespace Inlamning_3_ra_kod
         /* METHOD: VarString
          * PURPOSE: construct a string to write out in a variable list
          * PARAMETERS: --
-         * RETURNS: NOT YET IMPLEMENTED
+         * RETURNS: the string containing the values A-H with newlines between them
          */
         public string VarString()
         {
@@ -266,20 +266,20 @@ namespace Inlamning_3_ra_kod
             T = Z; Z = Y; Y = X; X = newX;
         }
         /* METHOD: SetAddress
-         * PURPOSE: 
+         * PURPOSE: Sets adress variable from the last button press
          * PARAMETERS: string name - variable name
          * RETURNS: --
-         * FEATURES: NOT YET IMPLEMENTED
+         * FEATURES: Last button pressed is saved
          */
         public void SetAddress(string name)
         {
             adress = name;
         }
         /* METHOD: SetVar
-         * PURPOSE: 
+         * PURPOSE: Save X variable for later use
          * PARAMETERS: --
          * RETURNS: --
-         * FEATURES: NOT YET IMPLEMENTED
+         * FEATURES: Saves X variable to a letter variable chosen by user input
          */
         public void SetVar()
         {
@@ -296,10 +296,10 @@ namespace Inlamning_3_ra_kod
             }
         }
         /* METHOD: GetVar
-         * PURPOSE: 
+         * PURPOSE: Sets saved letter variable to X
          * PARAMETERS: --
          * RETURNS: --
-         * FEATURES: NOT YET IMPLEMENTED
+         * FEATURES: Rolls stack and copies letter variable to X
          */
         public void GetVar()
         {
